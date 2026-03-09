@@ -1,102 +1,140 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg:       #0a0a0a;
-  --color-card:     #111111;
-  --color-card-alt: #141414;
-  --color-accent:   #ffffff;
-  --color-muted:    #a0a0a0;
-  --color-border:   #222222;
-  --font-sans:      var(--font-inter);
+  /* ─── Brand colors (DeveloperLook design, RevEnComm brand) ─── */
+  --color-primary:      #673DE6;
+  --color-primary-dark: #5530c4;
+  --color-bg:           #0c0c12;
+  --color-surface:      #13131f;
+  --color-text-muted:   #8b8b9e;
+  --color-gold:         #fdc448;
+  --color-border-muted: rgba(255,255,255,0.08);
 
-  --ease-smooth:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* ─── Font ─── */
+  --font-sans: var(--font-jakarta);
+
+  /* ─── Easing ─── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, ::before, ::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #0a0a0a;
+  background-color: #0c0c12;
   color: #ffffff;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Reduced motion — disable all animations globally */
+/* ─── Reduced motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
+  *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* ─── Marquee keyframes ─── */
+/* ─── Glass morphism ─────────────────────────────────────────── */
+.bg-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── Gradient border trick ──────────────────────────────────── */
+/* Wrap element in div.gradient-border, put content in div.gradient-inner */
+.gradient-border-card {
+  background: linear-gradient(135deg, rgba(103,61,230,0.45), rgba(255,255,255,0.05));
+  padding: 1.5px;
+  border-radius: 22px;
+}
+.gradient-border-card > * {
+  background: #13131f;
+  border-radius: 20.5px;
+}
+
+/* ─── Text gradient ──────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(to right, #D6C9F7, #8B65E9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-white {
+  background: linear-gradient(to right, #ffffff, rgba(255,255,255,0.65));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Hero blurry glow ───────────────────────────────────────── */
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(103,61,230,0.25) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ─── NProgress bar ──────────────────────────────────────────── */
+#nprogress .bar { background: #673DE6; height: 3px; }
+#nprogress .peg { box-shadow: 0 0 10px #673DE6, 0 0 5px #673DE6; }
+
+/* ─── Keyframes ──────────────────────────────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
 @keyframes marquee-reverse {
   from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 }
-
-/* ─── Vertical scroll carousel (Hero) ─── */
 @keyframes scroll-up {
   from { transform: translateY(0); }
   to   { transform: translateY(-50%); }
 }
-
-/* ─── WhatsApp pulse ring ─── */
 @keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 0.6; }
-  80%  { transform: scale(1.6); opacity: 0; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0%   { transform: scale(1); opacity: 0.5; }
+  80%  { transform: scale(1.65); opacity: 0; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-/* ─── Bounce Y (scroll indicator) ─── */
-@keyframes bounce-y {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(6px); }
-}
-
-/* ─── Utilities ─── */
+/* ─── Utility classes ────────────────────────────────────────── */
 @utility animate-marquee {
-  animation: marquee 22s linear infinite;
+  animation: marquee 28s linear infinite;
 }
-
 @utility animate-marquee-reverse {
-  animation: marquee-reverse 22s linear infinite;
+  animation: marquee-reverse 28s linear infinite;
 }
-
 @utility carousel-track {
-  animation: scroll-up 28s linear infinite;
+  animation: scroll-up 32s linear infinite;
+}
+@utility animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+@utility animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0c0c12; }
+::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #673DE6; }
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection { background: rgba(103,61,230,0.35); color: #fff; }

@@ -1,79 +1,71 @@
 'use client'
-// 'use client' — uses hooks, event listeners, scroll detection, AnimatePresence
+// 'use client' — scroll detection, AnimatePresence, mega menu state
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { m, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
-import {
-  Menu,
-  X,
-  ChevronDown,
-  Code2,
-  Smartphone,
-  Palette,
-  TrendingUp,
-  Globe,
-  ShoppingCart,
-  Layers,
-  Zap,
-} from 'lucide-react'
+import { Menu, X, ChevronDown, Megaphone, FileText, Globe, Bot, BarChart2, Palette } from 'lucide-react'
 
-const services = [
-  { label: 'Web Development', icon: Code2, href: '#services' },
-  { label: 'Mobile Apps', icon: Smartphone, href: '#services' },
-  { label: 'UI/UX Design', icon: Palette, href: '#services' },
-  { label: 'Digital Marketing', icon: TrendingUp, href: '#services' },
-  { label: 'SEO Optimization', icon: Globe, href: '#services' },
-  { label: 'E-Commerce', icon: ShoppingCart, href: '#services' },
-  { label: 'SaaS Products', icon: Layers, href: '#services' },
-  { label: 'Performance Audits', icon: Zap, href: '#services' },
+const serviceGroups = [
+  {
+    heading: 'Digital Marketing',
+    icon: Megaphone,
+    items: ['Facebook Ads', 'Google Ads', 'TikTok Ads', 'LinkedIn Ads', 'Email Marketing', 'Social Media Marketing'],
+  },
+  {
+    heading: 'Content Solutions',
+    icon: FileText,
+    items: ['Logo & Brand Design', 'Social Media Design', 'Ad Creatives', 'Copywriting'],
+  },
+  {
+    heading: 'Website & Software',
+    icon: Globe,
+    items: ['E-commerce Development', 'Landing Page Design', 'Portfolio Websites', 'Web Apps'],
+  },
+  {
+    heading: 'AI & Automation',
+    icon: Bot,
+    items: ['Social Media Automation', 'AI Chatbot & RAG', 'Personal AI Agent', 'Workflow Automation'],
+  },
 ]
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Work', href: '#portfolio' },
   { label: 'Services', href: '#services', hasMega: true },
+  { label: 'Portfolio', href: '#portfolio' },
   { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const navRef = useRef<HTMLElement>(null)
-  const megaRef = useRef<HTMLDivElement>(null)
-
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const prev = scrollY.getPrevious() ?? 0
-    setHidden(latest > 80 && latest > prev)
+    setHidden(latest > 100 && latest > prev)
+    setScrolled(latest > 20)
   })
 
-  // Keyboard: Escape closes mega/mobile
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMegaOpen(false)
-        setMobileOpen(false)
-      }
+      if (e.key === 'Escape') { setMegaOpen(false); setMobileOpen(false) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // Close mega menu on outside click
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setMegaOpen(false)
-      }
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setMegaOpen(false)
     }
     document.addEventListener('mousedown', onClick)
     return () => document.removeEventListener('mousedown', onClick)
   }, [])
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -84,20 +76,25 @@ export default function Navbar() {
       ref={navRef}
       animate={{ y: hidden ? -80 : 0 }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/60 border-b border-white/10"
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? 'bg-[#0c0c12]/90 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent'
+      }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" role="navigation" aria-label="Main navigation">
+      <nav
+        className="max-w-[1400px] mx-auto px-5 md:px-[25px] h-16 lg:h-[70px] flex items-center justify-between"
+        role="navigation" aria-label="Main navigation"
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm">
-          <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
-            <Code2 size={16} className="text-black" />
+        <Link href="/" className="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] rounded-sm">
+          <div className="w-8 h-8 rounded-lg bg-[#673DE6] flex items-center justify-center shrink-0">
+            <BarChart2 size={16} className="text-white" />
           </div>
-          <span className="text-white font-bold text-lg tracking-tight">
-            Developer<span className="text-white/60">Look</span>
+          <span className="font-bold text-[15px] lg:text-base tracking-tight">
+            RevEn<span className="text-[#673DE6]">Comm</span>
           </span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop links */}
         <ul className="hidden lg:flex items-center gap-1" role="list">
           {navLinks.map((link) => (
             <li key={link.label}>
@@ -106,9 +103,9 @@ export default function Navbar() {
                   onClick={() => setMegaOpen((v) => !v)}
                   aria-expanded={megaOpen}
                   aria-haspopup="true"
-                  className="flex items-center gap-1 px-4 py-2 text-sm text-white/70 hover:text-white
+                  className="flex items-center gap-1 px-4 py-2 text-[15px] text-white/70 hover:text-white
                              transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2
-                             focus-visible:ring-white rounded-md min-h-[44px]"
+                             focus-visible:ring-[#673DE6] rounded-md min-h-[44px]"
                 >
                   {link.label}
                   <m.span animate={{ rotate: megaOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
@@ -116,10 +113,9 @@ export default function Navbar() {
                   </m.span>
                 </button>
               ) : (
-                <Link
-                  href={link.href}
-                  className="px-4 py-2 text-sm text-white/70 hover:text-white transition-colors duration-200
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-md
+                <Link href={link.href}
+                  className="px-4 py-2 text-[15px] text-white/70 hover:text-white transition-colors duration-200
+                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] rounded-md
                              min-h-[44px] flex items-center"
                 >
                   {link.label}
@@ -129,33 +125,29 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Link
-            href="#contact"
-            className="text-sm text-white/60 hover:text-white transition-colors duration-200 min-h-[44px] flex items-center"
-          >
-            Contact
-          </Link>
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex items-center">
           <m.a
             href="#contact"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            className="bg-white text-black text-sm font-semibold px-5 py-2.5 rounded-full
-                       hover:bg-white/90 transition-colors min-h-[44px] flex items-center
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="flex items-center gap-2 bg-[#673DE6] text-white text-[15px] font-semibold
+                       px-5 py-2.5 rounded-xl min-h-[44px] hover:bg-[#5530c4] transition-colors duration-200
+                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0c0c12]"
           >
-            Let's Talk
+            <Palette size={14} />
+            Free Consultation
           </m.a>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile burger */}
         <button
           onClick={() => setMobileOpen((v) => !v)}
           aria-expanded={mobileOpen}
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          className="lg:hidden p-2 text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="lg:hidden p-2 text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2
+                     focus-visible:ring-[#673DE6] rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center"
         >
           <AnimatePresence mode="wait" initial={false}>
             {mobileOpen ? (
@@ -175,33 +167,33 @@ export default function Navbar() {
       <AnimatePresence>
         {megaOpen && (
           <m.div
-            ref={megaRef}
-            initial={{ opacity: 0, y: -8, scaleY: 0.97 }}
+            initial={{ opacity: 0, y: -10, scaleY: 0.96 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -8, scaleY: 0.97 }}
+            exit={{ opacity: 0, y: -10, scaleY: 0.96 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="absolute top-full left-0 w-full bg-[#0f0f0f]/95 backdrop-blur-xl
-                       border-b border-white/10 px-8 py-8"
+            className="absolute top-full left-0 w-full bg-[#0e0e1a]/98 backdrop-blur-xl
+                       border-b border-white/[0.07] px-5 md:px-[25px] py-8"
             role="menu"
           >
-            <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-              {services.map((service) => (
-                <m.a
-                  key={service.label}
-                  href={service.href}
-                  role="menuitem"
-                  onClick={() => setMegaOpen(false)}
-                  whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5
-                             text-white/60 hover:text-white transition-colors duration-200
-                             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white
-                             min-h-[44px]"
-                >
-                  <service.icon size={18} className="shrink-0" />
-                  <span className="text-sm font-medium">{service.label}</span>
-                </m.a>
+            <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+              {serviceGroups.map((group) => (
+                <div key={group.heading}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <group.icon size={14} className="text-[#673DE6] shrink-0" />
+                    <span className="text-white text-sm font-semibold">{group.heading}</span>
+                  </div>
+                  <ul className="flex flex-col gap-2.5" role="list">
+                    {group.items.map((item) => (
+                      <li key={item}>
+                        <a href="#services" role="menuitem" onClick={() => setMegaOpen(false)}
+                          className="text-white/45 hover:text-white text-[13px] transition-colors duration-150 block">
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
           </m.div>
@@ -212,55 +204,39 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+            <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 bg-black/60 z-[90] lg:hidden"
-              aria-hidden="true"
+              className="fixed inset-0 bg-black/70 z-[90] lg:hidden" aria-hidden="true"
             />
-            {/* Drawer */}
             <m.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
+              initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-              className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-[#0f0f0f] z-[100] p-8 flex flex-col lg:hidden"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobile navigation"
+              className="fixed inset-y-0 left-0 w-4/5 max-w-sm bg-[#0e0e1a] z-[100] p-7 flex flex-col
+                         border-r border-white/[0.06] lg:hidden"
+              role="dialog" aria-modal="true" aria-label="Mobile navigation"
             >
               <div className="flex items-center justify-between mb-10">
                 <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-white rounded-md flex items-center justify-center">
-                    <Code2 size={14} className="text-black" />
+                  <div className="w-7 h-7 rounded-lg bg-[#673DE6] flex items-center justify-center">
+                    <BarChart2 size={13} className="text-white" />
                   </div>
-                  <span className="text-white font-bold text-base">DeveloperLook</span>
+                  <span className="font-bold text-sm">RevEn<span className="text-[#673DE6]">Comm</span></span>
                 </Link>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close menu"
-                  className="p-2 text-white/60 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
-                >
+                <button onClick={() => setMobileOpen(false)} aria-label="Close menu"
+                  className="p-2 text-white/50 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center">
                   <X size={20} />
                 </button>
               </div>
 
               <ul className="flex flex-col gap-1 flex-1" role="list">
-                {[...navLinks, { label: 'Contact', href: '#contact' }].map((link, i) => (
-                  <m.li
-                    key={link.label}
+                {navLinks.map((link, i) => (
+                  <m.li key={link.label}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block py-3 px-2 text-lg text-white/70 hover:text-white transition-colors
+                    <Link href={link.href} onClick={() => setMobileOpen(false)}
+                      className="block py-3.5 text-base text-white/65 hover:text-white transition-colors
                                  border-b border-white/[0.06] min-h-[44px] flex items-center"
                     >
                       {link.label}
@@ -269,15 +245,12 @@ export default function Navbar() {
                 ))}
               </ul>
 
-              <m.a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.3 }}
-                className="mt-8 bg-white text-black font-semibold text-center py-3.5 rounded-full min-h-[44px] flex items-center justify-center"
+              <m.a href="#contact" onClick={() => setMobileOpen(false)}
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+                className="mt-8 bg-[#673DE6] text-white font-semibold text-center py-3.5 rounded-xl
+                           min-h-[44px] flex items-center justify-center hover:bg-[#5530c4] transition-colors"
               >
-                Let's Talk
+                Get a Free Consultation
               </m.a>
             </m.div>
           </>
