@@ -10,12 +10,12 @@ import { staggerContainer, staggerItem } from '@/lib/animation-variants'
 const BLUR_DATA = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUHCP/EACIQAAICAQQDAQAAAAAAAAAAAAECAwQREiExBRNBUf/EABUBAQEAAAAAAAAAAAAAAAAAAAUG/9oADAMBAAIRAxEAPwB7mMivVpV3Gv20zRRxmCWOL1FTpALYA8Vr2ysF3d6YoCJJHI2yR3JP6KKA/9k='
 
 const projects = [
-  { id: '1', title: 'Bliss Brand Campaign', category: 'Digital Marketing', tags: ['Facebook Ads', 'Brand Strategy'], image: 'https://placehold.co/800x600/1a1a2e/673DE6', href: '#' },
-  { id: '2', title: 'Dosyi E-Commerce Store', category: 'Web Development', tags: ['E-Commerce', 'Shopify'], image: 'https://placehold.co/800x600/0e1628/5530c4', href: '#' },
-  { id: '3', title: 'GenG Social Growth', category: 'Content Solutions', tags: ['Social Media', 'Content'], image: 'https://placehold.co/800x600/1a1428/7b52f0', href: '#' },
-  { id: '4', title: 'Care First AI Chatbot', category: 'AI Automation', tags: ['AI Chatbot', 'RAG'], image: 'https://placehold.co/800x600/0e1820/4420a0', href: '#' },
-  { id: '5', title: 'GCL Google Ads Strategy', category: 'Digital Marketing', tags: ['Google Ads', 'Analytics'], image: 'https://placehold.co/800x600/1a1a2e/673DE6', href: '#' },
-  { id: '6', title: 'Folafol Landing Page', category: 'Web Development', tags: ['Landing Page', 'Conversion'], image: 'https://placehold.co/800x600/0e1628/5530c4', href: '#' },
+  { id: '1', title: 'Bliss Brand Campaign', category: 'Digital Marketing', tags: ['Facebook Ads', 'Brand Strategy'], image: 'https://placehold.co/800x600/1a1a2e/673DE6/png', href: '#' },
+  { id: '2', title: 'Dosyi E-Commerce Store', category: 'Web Development', tags: ['E-Commerce', 'Shopify'], image: 'https://placehold.co/800x600/0e1628/5530c4/png', href: '#' },
+  { id: '3', title: 'GenG Social Growth', category: 'Content Solutions', tags: ['Social Media', 'Content'], image: 'https://placehold.co/800x600/1a1428/7b52f0/png', href: '#' },
+  { id: '4', title: 'Care First AI Chatbot', category: 'AI Automation', tags: ['AI Chatbot', 'RAG'], image: 'https://placehold.co/800x600/0e1820/4420a0/png', href: '#' },
+  { id: '5', title: 'GCL Google Ads Strategy', category: 'Digital Marketing', tags: ['Google Ads', 'Analytics'], image: 'https://placehold.co/800x600/1a1a2e/673DE6/png', href: '#' },
+  { id: '6', title: 'Folafol Landing Page', category: 'Web Development', tags: ['Landing Page', 'Conversion'], image: 'https://placehold.co/800x600/0e1628/5530c4/png', href: '#' },
 ]
 
 const FILTERS = ['All', 'Digital Marketing', 'Web Development', 'Content Solutions', 'AI Automation']

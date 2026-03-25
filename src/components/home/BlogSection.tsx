@@ -13,7 +13,7 @@ const posts = [
     excerpt: 'How small and medium businesses in Bangladesh can leverage content marketing to grow their customer base without large ad budgets.',
     date: 'Mar 5, 2026',
     readTime: '15 Min read',
-    image: 'https://placehold.co/800x450/1a1a2e/673DE6',
+    image: 'https://placehold.co/800x450/1a1a2e/673DE6/png',
     href: '#',
   },
   {
@@ -23,7 +23,7 @@ const posts = [
     excerpt: 'Most businesses are still flying blind with their ad spend. Here\'s how Google Analytics 4 reveals which channels actually drive revenue.',
     date: 'Feb 22, 2026',
     readTime: '12 Min read',
-    image: 'https://placehold.co/800x450/0e1628/5530c4',
+    image: 'https://placehold.co/800x450/0e1628/5530c4/png',
     href: '#',
   },
   {
@@ -33,7 +33,7 @@ const posts = [
     excerpt: 'The classic marketing funnel re-imagined for 2026. Awareness, consideration, and conversion — with real examples from RevEnComm campaigns.',
     date: 'Feb 8, 2026',
     readTime: '8 Min read',
-    image: 'https://placehold.co/800x450/1a1428/7b52f0',
+    image: 'https://placehold.co/800x450/1a1428/7b52f0/png',
     href: '#',
   },
 ]

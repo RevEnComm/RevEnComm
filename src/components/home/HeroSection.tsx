@@ -19,7 +19,7 @@ const CARDS = [
     Icon: TrendingUp,
     bg: '#13112a',
     accent: '#673DE6',
-    image: 'https://placehold.co/440x240/13112a/673DE6',
+    image: 'https://placehold.co/440x240/13112a/673DE6/png',
   },
   {
     id: 'dosyi',
@@ -30,7 +30,7 @@ const CARDS = [
     Icon: Code2,
     bg: '#0e1628',
     accent: '#4c8ef5',
-    image: 'https://placehold.co/440x240/0e1628/4c8ef5',
+    image: 'https://placehold.co/440x240/0e1628/4c8ef5/png',
   },
   {
     id: 'geng',
@@ -41,7 +41,7 @@ const CARDS = [
     Icon: Palette,
     bg: '#1a1428',
     accent: '#c45cf5',
-    image: 'https://placehold.co/440x240/1a1428/c45cf5',
+    image: 'https://placehold.co/440x240/1a1428/c45cf5/png',
   },
   {
     id: 'care',
@@ -52,7 +52,7 @@ const CARDS = [
     Icon: Bot,
     bg: '#0e1820',
     accent: '#2dd4bf',
-    image: 'https://placehold.co/440x240/0e1820/2dd4bf',
+    image: 'https://placehold.co/440x240/0e1820/2dd4bf/png',
   },
 ] as const
 
@@ -64,10 +64,10 @@ const STACK = [
 ]
 
 const avatars = [
-  'https://placehold.co/40x40/673DE6/ffffff',
-  'https://placehold.co/40x40/5530c4/ffffff',
-  'https://placehold.co/40x40/7b52f0/ffffff',
-  'https://placehold.co/40x40/4420a0/ffffff',
+  'https://placehold.co/40x40/673DE6/ffffff/png',
+  'https://placehold.co/40x40/5530c4/ffffff/png',
+  'https://placehold.co/40x40/7b52f0/ffffff/png',
+  'https://placehold.co/40x40/4420a0/ffffff/png',
 ]
 
 const badges = [
