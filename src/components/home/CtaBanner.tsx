@@ -19,20 +19,19 @@ export default function CtaBanner() {
                             rounded-full px-4 py-1.5 mb-8">
               <Sparkles size={13} className="text-[#673DE6]" aria-hidden="true" />
               <span className="text-[#a78bf5] text-xs font-semibold tracking-wide">
-                Limited spots — Q2 2026
+                RevEnComm growth partnership
               </span>
             </div>
 
             <h2 id="cta-heading"
               className="text-[clamp(2rem,6vw,4rem)] font-extrabold tracking-tight leading-[1.05] mb-6">
-              Ready to{' '}
-              <span className="text-gradient">Transform</span>{' '}
-              your business?
+              Ready to grow with a team that blends{' '}
+              <span className="text-gradient">strategy, creative, and execution</span>?
             </h2>
 
             <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto mb-10">
-              We take on a limited number of new clients each quarter. If you&apos;re serious about growing
-              your business through digital marketing, web development, or AI — let&apos;s talk.
+              If you want stronger digital visibility, sharper messaging, and a website or campaign system
+              that supports revenue, let&apos;s talk about the next move.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -54,7 +53,7 @@ export default function CtaBanner() {
 
             {/* Trust row */}
             <div className="flex flex-wrap justify-center gap-8 mt-12 pt-8 border-t border-white/[0.06]">
-              {['NDA on request', 'No lock-in contracts', '2-week onboarding', 'Money-back guarantee'].map((item) => (
+              {['Tailored strategy', 'Practical execution', 'Transparent communication', 'Business-first thinking'].map((item) => (
                 <div key={item} className="flex items-center gap-2 text-white/30 text-xs">
                   <div className="w-1 h-1 rounded-full bg-[#673DE6]" aria-hidden="true" />
                   {item}

@@ -1,491 +1,416 @@
 'use client'
-// 'use client' — word swap, folder card stack (auto-cycle + click-to-advance)
-// All animations are S-tier only: transform + opacity (GPU compositor thread)
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { m, AnimatePresence, useMotionValue, useTransform, useSpring } from 'motion/react'
-import { MessageCircle, Star, TrendingUp, Code2, Palette, Bot, ArrowUpRight } from 'lucide-react'
+import { m, AnimatePresence } from 'motion/react'
+import { MessageCircle, Star, TrendingUp, Code2, Palette, Bot, Play } from 'lucide-react'
 
-const WORDS = ['Digital', 'Growth', 'Creative', 'Powerful', 'Smarter'] as const
+// ─── DATA ────────────────────────────────────────────────────────────────────
 
-const CARDS = [
-  {
-    id: 'bliss',
-    client: 'Bliss',
-    service: 'Digital Marketing',
-    metric: '+312% ROAS',
-    desc: 'Meta & TikTok Ads campaign that tripled return on ad spend in 90 days.',
-    Icon: TrendingUp,
-    bg: '#13112a',
-    accent: '#673DE6',
-    image: 'https://placehold.co/440x240/13112a/673DE6/png',
-  },
-  {
-    id: 'dosyi',
-    client: 'Dosyi',
-    service: 'E-Commerce',
-    metric: '3× Revenue',
-    desc: 'Full Shopify store build + Google Ads funnel → tripled monthly revenue.',
-    Icon: Code2,
-    bg: '#0e1628',
-    accent: '#4c8ef5',
-    image: 'https://placehold.co/440x240/0e1628/4c8ef5/png',
-  },
-  {
-    id: 'geng',
-    client: 'GenG',
-    service: 'Content Solutions',
-    metric: '5× Engagement',
-    desc: 'Brand identity + social media content strategy drove 5× follower engagement.',
-    Icon: Palette,
-    bg: '#1a1428',
-    accent: '#c45cf5',
-    image: 'https://placehold.co/440x240/1a1428/c45cf5/png',
-  },
-  {
-    id: 'care',
-    client: 'Care First',
-    service: 'AI Automation',
-    metric: '70% Auto-resolved',
-    desc: 'RAG-powered AI chatbot now handles 70% of customer inquiries autonomously.',
-    Icon: Bot,
-    bg: '#0e1820',
-    accent: '#2dd4bf',
-    image: 'https://placehold.co/440x240/0e1820/2dd4bf/png',
-  },
-] as const
+const WORDS = ['Growth', 'Visibility', 'Momentum', 'Campaigns', 'Systems'] as const
 
-const STACK = [
-  { y: 0, scale: 1, rotate: 0, opacity: 1, z: 40 },
-  { y: 14, scale: 0.94, rotate: -2, opacity: 0.85, z: 30 },
-  { y: 26, scale: 0.88, rotate: 1.5, opacity: 0.65, z: 20 },
-  { y: 36, scale: 0.82, rotate: -1, opacity: 0.4, z: 10 },
+const FLOATING_CARDS = [
+  { id: 'marketing', label: 'Digital Marketing', Icon: TrendingUp, accent: '#8B5CF6', pos: { top: '20%', left: '5%' }, delay: 0 },
+  { id: 'web', label: 'Web Development', Icon: Code2, accent: '#38BDF8', pos: { top: '25%', right: '6%' }, delay: 0.2 },
+  { id: 'creative', label: 'Creative Content', Icon: Palette, accent: '#E879F9', pos: { bottom: '25%', left: '8%' }, delay: 0.4 },
+  { id: 'ai', label: 'AI & Automation', Icon: Bot, accent: '#2DD4BF', pos: { bottom: '22%', right: '10%' }, delay: 0.6 },
 ]
 
 const avatars = [
-  'https://placehold.co/40x40/673DE6/ffffff/png',
-  'https://placehold.co/40x40/5530c4/ffffff/png',
-  'https://placehold.co/40x40/7b52f0/ffffff/png',
-  'https://placehold.co/40x40/4420a0/ffffff/png',
+  'https://placehold.co/36x36/8B5CF6/ffffff/png',
+  'https://placehold.co/36x36/7C3AED/ffffff/png',
+  'https://placehold.co/36x36/6D28D9/ffffff/png',
+  'https://placehold.co/36x36/9C6BFF/ffffff/png',
 ]
 
-const badges = [
-  { name: 'Trustpilot', rating: '4.9', label: 'Excellent' },
-  { name: 'Clutch', rating: '5.0', label: '5 Star' },
-  { name: 'Google', rating: '4.8', label: 'Top Rated' },
-]
-
-function FolderCardStack() {
-  const [order, setOrder] = useState([0, 1, 2, 3])
-  const [isExiting, setIsExiting] = useState(false)
-
-  const advance = useCallback(() => {
-    if (isExiting) return
-    setIsExiting(true)
-    setTimeout(() => {
-      setOrder((prev) => {
-        const [first, ...rest] = prev
-        return [...rest, first]
-      })
-      setIsExiting(false)
-    }, 380)
-  }, [isExiting])
-
-  useEffect(() => {
-    const id = setInterval(advance, 3500)
-    return () => clearInterval(id)
-  }, [advance])
-
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 })
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 200, damping: 20 })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-
-  const handleMouseLeave = () => {
-    mouseX.set(0)
-    mouseY.set(0)
-  }
-
-  return (
-    <div
-      className="relative w-full select-none cursor-pointer"
-      style={{ height: '460px', perspective: '1000px' }}
-      onClick={advance}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      role="region"
-      aria-label="Portfolio case studies — click to browse"
-    >
-      {order.map((cardIdx, stackPos) => {
-        const card = CARDS[cardIdx]
-        const pos = STACK[stackPos] ?? STACK[STACK.length - 1]
-        const isFront = stackPos === 0
-        const exiting = isFront && isExiting
-
-        return (
-          <m.div
-            key={card.id}
-            animate={
-              exiting
-                ? { y: -120, scale: 0.78, rotate: -12, opacity: 0 }
-                : { y: pos.y, scale: pos.scale, rotate: pos.rotate, opacity: pos.opacity }
-            }
-            transition={
-              exiting
-                ? { duration: 0.38, ease: [0.4, 0, 0.2, 1] }
-                : { type: 'spring', stiffness: 280, damping: 28, mass: 0.9 }
-            }
-            style={{
-              zIndex: pos.z,
-              background: card.bg,
-              transformOrigin: 'bottom center',
-              transformStyle: 'preserve-3d',
-              rotateX: isFront ? rotateX : 0,
-              rotateY: isFront ? rotateY : 0,
-            }}
-            className="absolute inset-x-0 top-0 rounded-[22px] overflow-hidden border border-white/10 will-change-transform"
-          >
-            <div className="relative h-48 overflow-hidden">
-              <Image src={card.image} alt={card.client} fill sizes="440px" className="object-cover opacity-50" />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: `linear-gradient(135deg, ${card.accent}20, transparent 60%, rgba(0,0,0,0.4))`,
-                }}
-              />
-              <div className="absolute top-4 left-4 flex items-center gap-2">
-                <div
-                  className="w-8 h-8 rounded-xl flex items-center justify-center"
-                  style={{ background: `${card.accent}30`, border: `1px solid ${card.accent}40` }}
-                >
-                  <card.Icon size={14} style={{ color: card.accent }} />
-                </div>
-                <span className="text-white font-bold text-sm">{card.client}</span>
-              </div>
-              <div
-                className="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold"
-                style={{
-                  background: `${card.accent}20`,
-                  border: `1px solid ${card.accent}40`,
-                  color: card.accent,
-                }}
-              >
-                {card.metric}
-              </div>
-              {isFront && (
-                <m.div
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="absolute bottom-4 right-4 w-8 h-8 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20"
-                >
-                  <ArrowUpRight size={14} className="text-white" />
-                </m.div>
-              )}
-            </div>
-
-            <div className="px-5 py-4">
-              <span
-                className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold mb-2"
-                style={{
-                  background: `${card.accent}18`,
-                  border: `1px solid ${card.accent}30`,
-                  color: card.accent,
-                }}
-              >
-                {card.service}
-              </span>
-              <p className="text-white/60 text-xs leading-relaxed line-clamp-2">{card.desc}</p>
-            </div>
-          </m.div>
-        )
-      })}
-
-      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5" aria-hidden="true">
-        {CARDS.map((_, i) => (
-          <m.div
-            key={i}
-            animate={{
-              width: order[0] === i ? 20 : 6,
-              opacity: order[0] === i ? 1 : 0.3,
-            }}
-            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-            className="h-1.5 rounded-full bg-[#673DE6]"
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
+// ─── HERO SECTION ────────────────────────────────────────────────────────────
 
 export default function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0)
   const [btnHovered, setBtnHovered] = useState(false)
+  const [videoHovered, setVideoHovered] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [wordWidth, setWordWidth] = useState(0)
+  const measureRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    const id = setInterval(() => setWordIndex((i) => (i + 1) % WORDS.length), 2800)
+    const id = setInterval(() => setWordIndex(i => (i + 1) % WORDS.length), 3200)
     return () => clearInterval(id)
   }, [])
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 100)
-    return () => clearTimeout(timer)
+    const t = setTimeout(() => setLoaded(true), 80)
+    return () => clearTimeout(t)
   }, [])
+
+  useEffect(() => {
+    if (measureRef.current)
+      setWordWidth(measureRef.current.getBoundingClientRect().width)
+  }, [wordIndex])
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#0c0c12] pt-16 lg:pt-[70px]"
       aria-labelledby="hero-heading"
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        background: '#04020a',
+        paddingTop: 'clamp(64px,10vw,120px)',
+        paddingBottom: 'clamp(64px,5vw,80px)',
+        fontFamily: '"Bricolage Grotesque", "DM Sans", system-ui, sans-serif',
+      }}
     >
+      {/* ── GLOBAL STYLES ── */}
       <style>{`
-        .folder-wrapper {
-          position: relative;
-          width: 100%;
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800;12..96,900&family=DM+Mono:wght@400;500;700&display=swap');
+
+        .rc-text-gradient {
+          background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 45%, #C084FC 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
-        .folder-tab {
-          position: absolute;
-          top: -38px;
-          left: 0;
-          width: 210px;
-          height: 40px;
-          background: #1a1a2e;
-          border-radius: 14px 14px 0 0;
+        .rc-glass-badge {
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(12px);
+          border-radius: 100px;
+          display: inline-flex;
+          align-items: center;
+          padding: 6px 16px 6px 6px;
+          gap: 12px;
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .rc-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: linear-gradient(135deg, #7C3AED, #6D28D9);
+          color: #fff;
+          font-weight: 700;
+          font-size: 15px;
+          padding: 0 24px;
+          border-radius: 14px;
+          height: 56px;
+          border: 1px solid rgba(139, 92, 246, 0.5);
+          box-shadow: 0 8px 28px rgba(109, 40, 217, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+          cursor: pointer;
+          text-decoration: none;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          white-space: nowrap;
+        }
+        .rc-cta-btn:hover {
+          background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+          box-shadow: 0 12px 36px rgba(109, 40, 217, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          transform: translateY(-2px);
+        }
+
+        .rc-secondary-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: rgba(255, 255, 255, 0.03);
+          color: #fff;
+          font-weight: 600;
+          font-size: 15px;
+          padding: 0 24px;
+          border-radius: 14px;
+          height: 56px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(12px);
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .rc-secondary-btn:hover {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+        }
+
+        .rc-floating-card {
+          background: rgba(15, 12, 29, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(16px);
+          border-radius: 16px;
+          padding: 12px 18px;
           display: flex;
           align-items: center;
-          padding: 0 18px;
-          gap: 8px;
-          border: 1px solid rgba(255,255,255,0.08);
-          border-bottom: 0;
-          z-index: 2;
+          gap: 12px;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+          transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .rc-floating-card:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          transform: scale(1.05) !important;
         }
 
-        .folder-tab::after {
-          content: '';
-          position: absolute;
-          right: -20px;
-          bottom: -1px;
-          width: 20px;
-          height: 20px;
-          background: transparent;
-          border-bottom-left-radius: 12px;
-          box-shadow: -8px 8px 0 8px #1a1a2e;
+        .rc-icon-box {
+          width: 38px; height: 38px;
+          border-radius: 10px;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0;
         }
 
-        .tab-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #7c5cf6;
-        }
-
-        .tab-text {
-          font-size: 12px;
-          color: #8b8b9e;
-          letter-spacing: 0.05em;
-          font-weight: 600;
-        }
-
-        .folder-body {
-          background: #1a1a2e;
-          border-radius: 0 22px 22px 22px;
-          border: 1px solid rgba(255,255,255,0.08);
-          padding: 48px clamp(18px, 3vw, 36px) 34px;
-          position: relative;
-          overflow: hidden;
-          opacity: ${loaded ? 1 : 0};
-          transform: ${loaded ? 'translateY(0)' : 'translateY(16px)'};
-          transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .folder-body::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(124,92,246,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(124,92,246,0.04) 1px, transparent 1px);
+        .rc-bg-grid {
+          position: absolute; inset: 0; pointer-events: none; z-index: 0;
+          background-image: 
+            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
           background-size: 40px 40px;
-          pointer-events: none;
+          mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+          -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
         }
 
-        .folder-body::after {
-          content: '';
-          position: absolute;
-          bottom: -80px;
-          right: -80px;
-          width: 320px;
-          height: 320px;
-          background: radial-gradient(circle, rgba(124,92,246,0.14) 0%, transparent 70%);
-          pointer-events: none;
+        @keyframes rc-aurora-1 {
+          0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.15; }
+          33% { transform: translate(10%, -10%) scale(1.2) rotate(120deg); opacity: 0.25; }
+          66% { transform: translate(-10%, 10%) scale(0.9) rotate(240deg); opacity: 0.15; }
+          100% { transform: translate(0, 0) scale(1) rotate(360deg); opacity: 0.15; }
+        }
+        @keyframes rc-aurora-2 {
+          0% { transform: translate(0, 0) scale(1) rotate(360deg); opacity: 0.1; }
+          50% { transform: translate(-10%, -20%) scale(1.1) rotate(180deg); opacity: 0.2; }
+          100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; }
         }
 
-        @media (max-width: 640px) {
-          .folder-tab {
-            width: 180px;
-            top: -34px;
-            height: 36px;
-            padding: 0 12px;
-          }
+        .rc-orb-1 { animation: rc-aurora-1 25s ease-in-out infinite; }
+        .rc-orb-2 { animation: rc-aurora-2 30s ease-in-out infinite; }
 
-          .tab-text {
-            font-size: 11px;
-          }
-
-          .folder-body {
-            padding-top: 32px;
-          }
+        @media (max-width: 1024px) {
+          .rc-floating-elements { display: none; }
+        }
+        
+        .rc-content-wrapper {
+           opacity: ${loaded ? 1 : 0};
+           transform: ${loaded ? 'translateY(0)' : 'translateY(24px)'};
+           transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
       `}</style>
 
-      <div className="hero-glow top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 opacity-50" aria-hidden="true" />
-      <div className="hero-glow bottom-0 right-0 translate-x-1/4 opacity-20" aria-hidden="true" />
+      {/* ── BACKGROUND EFFECTS ── */}
+      <div className="rc-bg-grid" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-5 md:px-[25px] w-full grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center py-[clamp(70px,8.6vw,120px)]">
-        <div className="folder-wrapper">
-          <div className="folder-tab" aria-hidden="true">
-            <div className="tab-dot" />
-            <span className="tab-text">revencomm.com</span>
-          </div>
+      {/* Ambient Orbs */}
+      <div className="rc-orb-1" style={{
+        position: 'absolute', top: '10%', left: '25%',
+        width: '60vw', height: '60vw', maxWidth: 800, maxHeight: 800, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 60%)',
+        filter: 'blur(80px)', zIndex: 0, pointerEvents: 'none'
+      }} />
+      <div className="rc-orb-2" style={{
+        position: 'absolute', bottom: '0%', right: '20%',
+        width: '50vw', height: '50vw', maxWidth: 700, maxHeight: 700, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 60%)',
+        filter: 'blur(80px)', zIndex: 0, pointerEvents: 'none'
+      }} />
 
-          <div className="folder-body">
+      {/* ── FLOATING CARDS (Desktop Only) ── */}
+      <div className="rc-floating-elements" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+        <div style={{ position: 'relative', width: '100%', height: '100%', maxWidth: 1440, margin: '0 auto' }}>
+          {FLOATING_CARDS.map((card, i) => (
             <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-[1] flex items-center gap-3 w-fit mb-[clamp(20px,3.5vw,36px)]"
+              key={card.id}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 + card.delay, ease: [0.16, 1, 0.3, 1] }}
+              style={{ position: 'absolute', ...card.pos, pointerEvents: 'auto' }}
             >
-              <div className="flex -space-x-2">
-                {avatars.map((src, i) => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-[#1a1a2e] overflow-hidden shrink-0">
-                    <Image src={src} alt={`Client ${i + 1}`} width={32} height={32} className="object-cover" />
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={11} className="text-[#fdc448] fill-[#fdc448]" />
-                  ))}
+              <m.div
+                animate={{ y: [0, -18, 0], rotateZ: [0, i % 2 === 0 ? 2 : -2, 0] }}
+                transition={{ duration: 7 + i, repeat: Infinity, ease: "easeInOut", delay: card.delay }}
+                className="rc-floating-card"
+              >
+                <div className="rc-icon-box" style={{ background: `${card.accent}18`, border: `1px solid ${card.accent}40`, color: card.accent }}>
+                  <card.Icon size={18} />
                 </div>
-                <span className="text-white/60 text-xs font-medium">Loved by 150+ Business Owners</span>
-              </div>
-            </m.div>
-
-            <h1
-              id="hero-heading"
-              className="relative z-[1] font-extrabold leading-[1.05] tracking-tight text-[clamp(2.5rem,5.5vw,5.5rem)] mb-[clamp(12px,1.5vw,20px)]"
-            >
-              <m.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-white"
-              >
-                Let&apos;s Make The
-              </m.span>
-
-              <m.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-wrap items-end gap-x-4 text-white"
-              >
-                Next{' '}
-                <span
-                  className="overflow-hidden inline-block align-bottom relative"
-                  style={{ minWidth: 'clamp(150px, 22vw, 350px)', height: '1.05em' }}
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
-                  <AnimatePresence mode="wait">
-                    <m.span
-                      key={WORDS[wordIndex]}
-                      initial={{ y: '110%', opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: '-110%', opacity: 0 }}
-                      transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-0 text-gradient"
-                    >
-                      {WORDS[wordIndex]}
-                    </m.span>
-                  </AnimatePresence>
-                </span>{' '}Thing
-              </m.span>
-            </h1>
-
-            <m.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left' }}
-              className="relative z-[1] w-full h-px bg-white/10 my-[clamp(16px,3.2vw,36px)]"
-              aria-hidden="true"
-            />
-
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-[1] mb-[clamp(20px,3.5vw,40px)] flex flex-wrap items-center gap-4"
-            >
-              <div className="grid grid-cols-3 gap-3 flex-1 min-w-[280px] max-w-md">
-                {badges.map((b) => (
-                  <div key={b.name} className="bg-glass border border-white/[0.08] rounded-[20px] p-4 flex flex-col gap-1.5">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={9} className="text-[#fdc448] fill-[#fdc448]" />
-                      ))}
-                    </div>
-                    <span className="text-white font-bold text-sm leading-none">{b.rating}</span>
-                    <span className="text-white/35 text-[10px] font-medium leading-snug">{b.label} on {b.name}</span>
-                  </div>
-                ))}
-              </div>
-
-              <m.a
-                href="#contact"
-                onHoverStart={() => setBtnHovered(true)}
-                onHoverEnd={() => setBtnHovered(false)}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="group relative flex items-center gap-2.5 bg-[#673DE6] text-white font-semibold pl-[15px] pr-1.5 py-1.5 rounded-[12px] min-h-[50px] hover:bg-[#5530c4] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0c0c12] w-full sm:w-auto sm:ml-auto"
-              >
-                <span className="text-[15px] overflow-hidden h-[1.2em] relative block" style={{ width: '110px' }}>
-                  <span className={`block transition-transform duration-[0.4s] ${btnHovered ? '-translate-y-full' : 'translate-y-0'}`}>
-                    Let&apos;s Discuss
+                <div>
+                  <span style={{ display: 'block', fontSize: 13, fontWeight: 700, color: '#fff', letterSpacing: '0.01em' }}>
+                    {card.label}
                   </span>
-                  <span
-                    className="absolute top-full left-0 block transition-transform duration-[0.4s]"
-                    style={{ transform: btnHovered ? 'translateY(-100%)' : 'translateY(0)' }}
-                  >
-                    Let&apos;s Discuss
-                  </span>
-                </span>
-                <span className="w-9 h-9 bg-white rounded-[8px] flex items-center justify-center shrink-0">
-                  <MessageCircle size={16} className="text-[#673DE6]" />
-                </span>
-              </m.a>
+                </div>
+              </m.div>
             </m.div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── MAIN CONTENT ── */}
+      <div 
+        className="rc-content-wrapper"
+        style={{
+          position: 'relative', zIndex: 10,
+          maxWidth: 960, width: '100%',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          textAlign: 'center', padding: '0 24px',
+        }}
+      >
+        {/* Social Proof Badge */}
+        <div className="rc-glass-badge">
+          <div style={{ display: 'flex' }}>
+            {avatars.map((src, i) => (
+              <div key={i} style={{
+                width: 28, height: 28, borderRadius: '50%',
+                border: '2px solid rgba(15,12,29,0.9)',
+                overflow: 'hidden', flexShrink: 0,
+                marginLeft: i > 0 ? -10 : 0,
+              }}>
+                <Image src={src} alt="Client" width={28} height={28} style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ display: 'flex', gap: 2 }}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={10} style={{ color: '#F59E0B', fill: '#F59E0B' }} />
+              ))}
+            </div>
+            <span style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.7)', fontWeight: 500, paddingRight: 4 }}>
+              Trusted by ambitious brands
+            </span>
           </div>
         </div>
 
-        <m.div
-          initial={{ opacity: 0, x: 48, y: 16 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden md:block pb-6 md:pt-1"
+        {/* Heading */}
+        <h1
+          id="hero-heading"
+          style={{
+            marginTop: 'clamp(24px, 4vw, 32px)',
+            fontFamily: '"Bricolage Grotesque", system-ui, sans-serif',
+            fontWeight: 900,
+            lineHeight: 1.05,
+            letterSpacing: '-0.02em',
+            fontSize: 'clamp(3rem, 7vw, 6.5rem)',
+            color: '#fff',
+            textShadow: '0 12px 40px rgba(0,0,0,0.5)',
+          }}
         >
-          <FolderCardStack />
+          <span style={{ display: 'block', marginBottom: '8px' }}>
+            Transform Your
+          </span>
+          <span style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '0 16px' }}>
+            <span>Business</span>
+            {' '}
+            <span
+              style={{
+                position: 'relative', display: 'inline-flex',
+                alignItems: 'center',
+                overflow: 'hidden', verticalAlign: 'middle',
+                lineHeight: 1.15,
+                width: wordWidth ? `${wordWidth}px` : 'auto',
+                height: '1.2em',
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '16px', // Pill shape for the rotating word
+                padding: '0 12px',
+                transition: 'width 0.4s cubic-bezier(0.16,1,0.3,1)',
+              }}
+            >
+              <AnimatePresence mode="wait">
+                <m.span
+                  key={WORDS[wordIndex]}
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -50, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.16,1,0.3,1] }}
+                  className="rc-text-gradient"
+                  style={{ position: 'absolute', left: 16, whiteSpace: 'nowrap' }}
+                >
+                  {WORDS[wordIndex]}
+                </m.span>
+              </AnimatePresence>
+              <span ref={measureRef} className="rc-text-gradient"
+                style={{ visibility: 'hidden', whiteSpace: 'nowrap', display: 'inline-block', padding: '0 4px' }}>
+                {WORDS[wordIndex]}
+              </span>
+            </span>
+          </span>
+        </h1>
+
+        {/* Subtext */}
+        <p style={{
+          marginTop: 'clamp(20px, 3vw, 28px)',
+          maxWidth: 680,
+          color: 'rgba(255,255,255,0.6)',
+          fontSize: 'clamp(16px, 1.5vw, 19px)',
+          lineHeight: 1.6,
+          fontWeight: 400,
+        }}>
+          RevEnComm helps businesses grow through strategic digital marketing, scalable website solutions, 
+          creative execution, and practical AI automation.
+        </p>
+
+        {/* CTA Actions */}
+        <div style={{
+          marginTop: 'clamp(32px, 4vw, 44px)',
+          display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16,
+        }}>
+          <a
+            href="#contact"
+            className="rc-cta-btn"
+            onMouseEnter={() => setBtnHovered(true)}
+            onMouseLeave={() => setBtnHovered(false)}
+          >
+            Start Your Project
+            <MessageCircle size={18} style={{ 
+              transform: btnHovered ? 'scale(1.1) rotate(-5deg)' : 'scale(1) rotate(0)',
+              transition: 'transform 0.3s ease'
+             }} />
+          </a>
+          <a
+            href="#work"
+            className="rc-secondary-btn"
+            onMouseEnter={() => setVideoHovered(true)}
+            onMouseLeave={() => setVideoHovered(false)}
+          >
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', background: 'rgba(255,255,255,0.1)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transform: videoHovered ? 'scale(1.1)' : 'scale(1)',
+              transition: 'transform 0.3s ease'
+            }}>
+              <Play size={12} style={{ color: '#fff', marginLeft: 2 }} />
+            </div>
+            See How We Work
+          </a>
+        </div>
+
+        {/* Metrics Bar */}
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          style={{
+            marginTop: 'clamp(48px, 6vw, 64px)',
+            display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(24px, 4vw, 48px)',
+            paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.1)',
+            width: '100%', maxWidth: 800,
+          }}
+        >
+          {[
+            { label: 'Client Growth', val: '+240%' },
+            { label: 'Projects Delivered', val: '150+' },
+            { label: 'Ops Efficiency', val: '-60%' },
+          ].map((stat, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <span style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 800, color: '#fff', fontFamily: '"Bricolage Grotesque", sans-serif' }}>
+                {stat.val}
+              </span>
+              <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontFamily: '"DM Mono", monospace' }}>
+                {stat.label}
+              </span>
+            </div>
+          ))}
         </m.div>
+
       </div>
     </section>
   )

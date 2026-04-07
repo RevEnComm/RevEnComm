@@ -10,12 +10,12 @@ export default function PageLoader() {
   useEffect(() => {
     const onLoad = () => setLoaded(true)
     if (document.readyState === 'complete') {
-      // Already loaded — schedule microtask to allow React to paint first
-      setLoaded(true)
-    } else {
-      window.addEventListener('load', onLoad)
-      return () => window.removeEventListener('load', onLoad)
+      const timer = window.setTimeout(onLoad, 0)
+      return () => window.clearTimeout(timer)
     }
+
+    window.addEventListener('load', onLoad)
+    return () => window.removeEventListener('load', onLoad)
   }, [])
 
   return (

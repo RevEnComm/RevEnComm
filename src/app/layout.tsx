@@ -12,21 +12,21 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'RevEnComm — Transforming Businesses Through Digital Excellence',
+  title: 'RevEnComm | Transforming Businesses Through Digital Excellence',
   description:
-    'RevEnComm is a full-service digital marketing, content, web development, and AI automation agency. Data-driven strategies that drive real growth.',
+    'RevEnComm is a digital growth partner focused on digital marketing, website solutions, creative strategy, and automation for measurable business results.',
   keywords: [
     'digital marketing',
-    'web development',
+    'website solution',
     'AI automation',
     'social media marketing',
-    'SEO',
-    'content solutions',
+    'brand promotion',
+    'landing page design',
     'Bangladesh',
   ],
   openGraph: {
-    title: 'RevEnComm — Digital Excellence Agency',
-    description: 'Transforming businesses through digital marketing, web development, and AI automation.',
+    title: 'RevEnComm | Digital Excellence Agency',
+    description: 'Transforming businesses through digital marketing, website solutions, and practical automation.',
     type: 'website',
     url: 'https://revencomm.com',
   },

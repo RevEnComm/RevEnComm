@@ -34,17 +34,17 @@ export default function NewsletterSection() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="text-white/40 text-sm font-medium tracking-widest uppercase mb-4">
-            Stay in the loop
+            Get in touch
           </p>
           <h2
             id="newsletter-heading"
             className="text-3xl md:text-4xl font-bold tracking-tight mb-4"
           >
-            Get performance tips & case studies
+            Book your free consultation
           </h2>
           <p className="text-white/50 text-base leading-relaxed mb-10">
-            No fluff. Just practical insights on Next.js performance, animation techniques, and
-            design systems — straight to your inbox.
+            Tell us a bit about your business and we&apos;ll follow up with practical next steps around
+            digital marketing, website solutions, or automation.
           </p>
 
           <AnimatePresence mode="wait">
@@ -81,7 +81,7 @@ export default function NewsletterSection() {
                              px-6 py-3 rounded-xl text-sm shrink-0 min-h-[44px] min-w-[120px]
                              disabled:opacity-60 disabled:cursor-not-allowed
                              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                  aria-label="Subscribe to newsletter"
+                  aria-label="Submit consultation request"
                 >
                   <AnimatePresence mode="wait">
                     {loading ? (
@@ -103,7 +103,7 @@ export default function NewsletterSection() {
                         exit={{ opacity: 0, y: -8 }}
                         className="flex items-center gap-2"
                       >
-                        Subscribe <ArrowRight size={14} />
+                        Request Consultation <ArrowRight size={14} />
                       </m.span>
                     )}
                   </AnimatePresence>
@@ -123,9 +123,9 @@ export default function NewsletterSection() {
                                 flex items-center justify-center">
                   <Check size={20} className="text-white" />
                 </div>
-                <p className="text-white font-semibold">You&apos;re in!</p>
+                <p className="text-white font-semibold">Request received</p>
                 <p className="text-white/50 text-sm">
-                  Thanks for subscribing. First issue lands this Friday.
+                  Thanks. RevEnComm will reach out using the details you provided.
                 </p>
               </m.div>
             )}

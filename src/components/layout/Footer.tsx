@@ -40,27 +40,27 @@ function IconTiktok() {
 }
 
 const socials = [
-  { label: 'Facebook', Icon: IconFacebook, href: '#' },
-  { label: 'Instagram', Icon: IconInstagram, href: '#' },
-  { label: 'LinkedIn', Icon: IconLinkedin, href: '#' },
-  { label: 'TikTok', Icon: IconTiktok, href: '#' },
+  { label: 'Facebook', Icon: IconFacebook, href: 'https://www.facebook.com/' },
+  { label: 'Instagram', Icon: IconInstagram, href: 'https://www.instagram.com/' },
+  { label: 'LinkedIn', Icon: IconLinkedin, href: 'https://www.linkedin.com/' },
+  { label: 'TikTok', Icon: IconTiktok, href: 'https://www.tiktok.com/' },
 ]
 
 const links = {
   Services: [
-    { label: 'Digital Marketing', href: '#services' },
-    { label: 'Content Solutions', href: '#services' },
-    { label: 'Website & Software', href: '#services' },
-    { label: 'AI & Automation', href: '#services' },
+    { label: 'Digital Marketing', href: '/services' },
+    { label: 'Content Solution', href: '/services' },
+    { label: 'Website Solution', href: '/services' },
+    { label: 'AI & Automation', href: '/services' },
   ],
   Company: [
-    { label: 'About', href: '#about' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Careers', href: '#' },
+    { label: 'About', href: '/about' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Blog', href: '/blogs' },
+    { label: 'Contact', href: '#contact' },
   ],
   Resources: [
-    { label: 'Case Studies', href: '#' },
+    { label: 'Website Solution', href: '/services' },
     { label: 'Free Consultation', href: '#contact' },
     { label: 'Privacy Policy', href: '#' },
     { label: 'Terms of Service', href: '#' },
@@ -76,8 +76,8 @@ export default function Footer() {
         <div className="bg-glass border border-white/8 rounded-[20px] px-8 py-6 flex flex-col md:flex-row
                         items-center justify-between gap-6 mb-16">
           <div>
-            <h3 className="text-white font-bold text-lg mb-1">Stay ahead of the curve</h3>
-            <p className="text-white/45 text-sm">Get marketing insights and agency updates.</p>
+            <h3 className="text-white font-bold text-lg mb-1">Let&apos;s talk about your next growth move</h3>
+            <p className="text-white/45 text-sm">Share your email and we&apos;ll follow up with a consultation.</p>
           </div>
           <form className="flex gap-3 w-full md:w-auto" aria-label="Newsletter signup">
             <input type="email" placeholder="your@email.com" aria-label="Email address"
@@ -105,8 +105,8 @@ export default function Footer() {
             </Link>
 
             <p className="text-white/40 text-sm leading-relaxed max-w-xs mb-6">
-              Transforming businesses through data-driven digital marketing, bold content,
-              high-performance websites, and intelligent AI solutions.
+              Transforming businesses through digital marketing, website solutions, creative strategy,
+              and practical automation.
             </p>
 
             {/* Contact info */}
@@ -119,7 +119,7 @@ export default function Footer() {
               <a href="tel:+8801806673304"
                 className="flex items-center gap-2 text-white/40 hover:text-white text-sm transition-colors">
                 <Phone size={13} className="text-primary shrink-0" />
-                +880 1806 673304
+                +880 01806673304
               </a>
               <div className="flex items-start gap-2 text-white/40 text-sm">
                 <MapPin size={13} className="text-primary shrink-0 mt-0.5" />

@@ -10,11 +10,11 @@ import { staggerContainer, staggerItem } from '@/lib/animation-variants'
 const BLUR_DATA = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUHCP/EACIQAAICAQQDAQAAAAAAAAAAAAECAwQREiExBRNBUf/EABUBAQEAAAAAAAAAAAAAAAAAAAUG/9oADAMBAAIRAxEAPwB7mMivVpV3Gv20zRRxmCWOL1FTpALYA8Vr2ysF3d6YoCJJHI2yR3JP6KKA/9k='
 
 const testimonials = [
-  { id: '1', name: 'Rashid Al-Farsi', role: 'CEO', company: 'Bliss', avatar: 'https://placehold.co/64x64/673DE6/ffffff/png', rating: 5, text: 'RevEnComm completely transformed our social media presence. Our Facebook ad ROAS went from 1.8x to 4.6x in just 3 months. The team is data-obsessed in the best way.' },
-  { id: '2', name: 'Nadia Islam', role: 'Founder', company: 'Dosyi', avatar: 'https://placehold.co/64x64/5530c4/ffffff/png', rating: 5, text: 'They built our e-commerce store and ran our Google Ads simultaneously. Orders tripled in our first quarter. I appreciate that they treat our business like their own.' },
-  { id: '3', name: 'Tanvir Ahmed', role: 'Marketing Head', company: 'GenG', avatar: 'https://placehold.co/64x64/7b52f0/ffffff/png', rating: 5, text: 'The content team produces insane quality creatives. Our TikTok ads are consistently top performers now. RevEnComm is the agency I wish I found years earlier.' },
-  { id: '4', name: 'Parveen Kaur', role: 'COO', company: 'Care First', avatar: 'https://placehold.co/64x64/4420a0/ffffff/png', rating: 5, text: 'Their AI chatbot solution handles 70% of our customer inquiries automatically. The quality of responses is remarkable — clients often don\'t realize they\'re chatting with AI.' },
-  { id: '5', name: 'Sabbir Hossain', role: 'Director', company: 'GCL', avatar: 'https://placehold.co/64x64/673DE6/ffffff/png', rating: 5, text: 'RevEnComm\'s Google Ads management cut our cost-per-lead by 40%. Their reporting is transparent and they proactively suggest improvements every week.' },
+  { id: '1', name: 'Zahid Hasan', role: 'Founder', company: 'TechNova', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100', rating: 5, text: 'RevEnComm helped us bring structure to our marketing. The team was responsive, clear, and focused on outcomes instead of vanity metrics.' },
+  { id: '2', name: 'Aisha Rahman', role: 'Director', company: 'StyleLoom', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100', rating: 5, text: 'Their website and campaign thinking made our offer easier to understand and easier to buy from. We now have a stronger digital foundation to build on.' },
+  { id: '3', name: 'David Smith', role: 'Marketing Lead', company: 'Apex Services', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100', rating: 5, text: 'What stood out most was their balance of creativity and discipline. The team moved fast, communicated well, and kept every recommendation tied to business goals.' },
+  { id: '4', name: 'Sarah Ahmed', role: 'Operations Head', company: 'FreshBites', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100', rating: 5, text: 'We came in looking for execution, but RevEnComm also improved the way we think about positioning, messaging, and customer flow.' },
+  { id: '5', name: 'Michael Chen', role: 'Co-Founder', company: 'ScaleUp Digital', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100', rating: 5, text: 'They feel like a practical growth partner. The work is thoughtful, the delivery is solid, and the process never feels bloated.' },
 ]
 
 export default function TestimonialsSection() {
@@ -42,8 +42,8 @@ export default function TestimonialsSection() {
 
           <m.h2 variants={staggerItem} id="testimonials-heading"
             className="text-[clamp(1.8rem,4.3vw,3.5rem)] font-extrabold tracking-tight leading-[1.1] max-w-2xl">
-            See What Our Clients{' '}
-            <span className="text-gradient">Love</span> About Us
+            Building Trust With{' '}
+            <span className="text-gradient">Real Partnerships</span>
           </m.h2>
         </m.div>
 

@@ -7,21 +7,21 @@ import { staggerContainer, staggerItem } from '@/lib/animation-variants'
 import { Zap, Users, Award, CalendarCheck } from 'lucide-react'
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Projects Complete', icon: Zap },
-  { value: 300, suffix: '+', label: 'Satisfied Clients', icon: Users },
-  { value: 15, suffix: '+', label: 'Awards Won', icon: Award },
-  { value: 5, suffix: 'Y+', label: 'Experience', icon: CalendarCheck },
+  { value: 4, suffix: '', label: 'Core Service Areas', icon: Zap },
+  { value: 3, suffix: '', label: 'Guiding Values', icon: Users },
+  { value: 1, suffix: '', label: 'Growth Partner Mindset', icon: Award },
+  { value: 24, suffix: '/7', label: 'Digital-First Thinking', icon: CalendarCheck },
 ]
 
 const partners = [
-  'Bliss', 'Dosyi', 'GenG', 'Chilleghuri', 'Palki', 'Green Factory',
-  'Scinan', 'Care First', 'Folafol', 'Gentle Trend', 'GCL', 'Prithuli',
+  'Chileghuri', 'Organic', 'eSolution', 'RevEnComm',
+  'Digital Marketing', 'Website Solution', 'Content Strategy', 'AI & Automation',
 ]
 
 const pillRows = [
-  ['Digital Marketing', 'Facebook Ads', 'Google Ads', 'TikTok Ads', 'LinkedIn Ads', 'Email Marketing', 'Copywriting'],
-  ['Brand Design', 'Social Media Design', 'Ad Creatives', 'Content Strategy', 'Video Ads', 'Infographics'],
-  ['Web Development', 'E-Commerce', 'Landing Pages', 'AI Chatbot', 'Automation', 'Personal AI Agent'],
+  ['Brand Promotion', 'Social Media Marketing', 'Data-Driven Digital Marketing', 'Email Marketing'],
+  ['E-Commerce Website Development', 'Landing Page Design', 'Creative Innovation', 'Performance Tracking'],
+  ['Collaboration', 'Innovation', 'Integrity', 'Business Growth', 'Tailored Strategy', 'Measurable Results'],
 ]
 
 function StatCard({ value, suffix, label, icon: Icon }: (typeof stats)[0]) {
@@ -95,8 +95,8 @@ export default function AboutSection() {
 
           <m.h2 variants={staggerItem} id="about-heading"
             className="text-[clamp(1.8rem,4.3vw,3.5rem)] font-extrabold tracking-tight leading-[1.1] max-w-3xl">
-            Over the past 5 years, we&apos;ve perfected our{' '}
-            <span className="text-gradient">Marketing &amp; Digital</span> game to help businesses grow
+            Transforming Businesses Through{' '}
+            <span className="text-gradient">Digital Excellence</span>
           </m.h2>
         </m.div>
 
@@ -117,7 +117,7 @@ export default function AboutSection() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16">
           <p className="text-white/30 text-xs font-semibold tracking-[0.25em] uppercase mb-6">
-            Worked With Growing Brands
+            Focused On Growth, Clarity, And Long-Term Relationships
           </p>
           <div className="flex flex-wrap gap-3">
             {partners.map((p) => (
@@ -135,7 +135,7 @@ export default function AboutSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.6 }}
           className="flex flex-col gap-3">
-          <p className="text-white/25 text-xs tracking-[0.25em] uppercase mb-2">What we do</p>
+          <p className="text-white/25 text-xs tracking-[0.25em] uppercase mb-2">What RevEnComm stands for</p>
           {pillRows.map((pills, i) => (
             <PillRow key={i} pills={pills} reverse={i % 2 !== 0} />
           ))}

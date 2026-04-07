@@ -2,18 +2,18 @@
 // CSS marquee runs on the compositor thread (transform-based).
 
 const brands = [
-  'Stripe',
-  'Notion',
-  'Linear',
-  'Vercel',
-  'Figma',
-  'Supabase',
-  'Loom',
-  'Clerk',
-  'Resend',
-  'Planetscale',
-  'Railway',
-  'Turso',
+  'Chileghuri',
+  'Organic',
+  'eSolution',
+  'RevEnComm',
+  'Brand Promotion',
+  'Social Media',
+  'Website Solution',
+  'Landing Pages',
+  'Data-Driven Marketing',
+  'Creative Strategy',
+  'AI & Automation',
+  'Business Growth',
 ]
 
 function BrandList({ reverse = false }: { reverse?: boolean }) {
@@ -40,7 +40,7 @@ export default function TrustMarquee() {
     <section className="py-12 border-y border-white/[0.06] overflow-hidden" aria-label="Trusted by leading companies">
       <div className="mb-3">
         <p className="text-center text-white/25 text-xs tracking-[0.25em] uppercase mb-8">
-          Trusted by teams at
+          Our Happy Partners
         </p>
         {/* Row 1 — left to right */}
         <div

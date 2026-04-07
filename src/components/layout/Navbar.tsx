@@ -10,30 +10,30 @@ const serviceGroups = [
   {
     heading: 'Digital Marketing',
     icon: Megaphone,
-    items: ['Facebook Ads', 'Google Ads', 'TikTok Ads', 'LinkedIn Ads', 'Email Marketing', 'Social Media Marketing'],
+    items: ['Brand Promotion', 'Social Media Marketing', 'Data-Driven Marketing', 'Email Marketing'],
   },
   {
-    heading: 'Content Solutions',
-    icon: FileText,
-    items: ['Logo & Brand Design', 'Social Media Design', 'Ad Creatives', 'Copywriting'],
+    heading: 'Content Solution',
+    icon: Palette,
+    items: ['Logo & Brand Design', 'Social Media & Ad Design', 'Business Materials'],
   },
   {
-    heading: 'Website & Software',
+    heading: 'Website Solution',
     icon: Globe,
-    items: ['E-commerce Development', 'Landing Page Design', 'Portfolio Websites', 'Web Apps'],
+    items: ['E-Commerce Development', 'Landing Page Design', 'Portfolio Website', 'Custom Web Apps'],
   },
   {
     heading: 'AI & Automation',
     icon: Bot,
-    items: ['Social Media Automation', 'AI Chatbot & RAG', 'Personal AI Agent', 'Workflow Automation'],
+    items: ['Social Media Automation', 'AI Chatbot & RAG', 'Personal AI Agent'],
   },
 ]
 
 const navLinks = [
-  { label: 'Services', href: '#services', hasMega: true },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Services', href: '/services', hasMega: true },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Blog', href: '/blogs' },
+  { label: 'About Us', href: '/about' },
 ]
 
 export default function Navbar() {
@@ -137,7 +137,7 @@ export default function Navbar() {
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0c0c12]"
           >
             <Palette size={14} />
-            Free Consultation
+            Get a Free Consultation
           </m.a>
         </div>
 
@@ -186,10 +186,10 @@ export default function Navbar() {
                   <ul className="flex flex-col gap-2.5" role="list">
                     {group.items.map((item) => (
                       <li key={item}>
-                        <a href="#services" role="menuitem" onClick={() => setMegaOpen(false)}
+                        <Link href={`/services#${item.toLowerCase().replace(/\s+/g, '-')}`} role="menuitem" onClick={() => setMegaOpen(false)}
                           className="text-white/45 hover:text-white text-[13px] transition-colors duration-150 block">
                           {item}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

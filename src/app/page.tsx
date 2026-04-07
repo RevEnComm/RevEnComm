@@ -14,8 +14,10 @@ const TrustMarquee = dynamic(() => import('@/components/home/TrustMarquee'))
 const AboutSection = dynamic(() => import('@/components/home/AboutSection'))
 const PortfolioSection = dynamic(() => import('@/components/home/PortfolioSection'))
 const ServicesSection = dynamic(() => import('@/components/home/ServicesSection'))
+const CategoriesSection = dynamic(() => import('@/components/home/CategoriesSection'))
 const TestimonialsSection = dynamic(() => import('@/components/home/TestimonialsSection'))
 const BlogSection = dynamic(() => import('@/components/home/BlogSection'))
+const FaqSection = dynamic(() => import('@/components/home/FaqSection'))
 const CtaBanner = dynamic(() => import('@/components/home/CtaBanner'))
 const NewsletterSection = dynamic(() => import('@/components/home/NewsletterSection'))
 
@@ -35,7 +37,9 @@ export default function HomePage() {
         <AboutSection />
         <PortfolioSection />
         <ServicesSection />
+        <CategoriesSection />
         <TestimonialsSection />
+        <FaqSection />
         <BlogSection />
         <CtaBanner />
         <NewsletterSection />

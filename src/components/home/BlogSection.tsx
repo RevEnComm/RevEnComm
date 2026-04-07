@@ -8,33 +8,33 @@ const BLUR_DATA = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQ
 const posts = [
   {
     id: '1',
-    category: 'Digital Marketing',
+    category: 'Content Marketing',
     title: 'Content Marketing Solutions in Bangladesh for SMEs',
-    excerpt: 'How small and medium businesses in Bangladesh can leverage content marketing to grow their customer base without large ad budgets.',
-    date: 'Mar 5, 2026',
-    readTime: '15 Min read',
-    image: 'https://placehold.co/800x450/1a1a2e/673DE6/png',
-    href: '#',
+    excerpt: 'Struggling to grow your small business in Bangladesh? Discover effective Content Marketing solutions to boost your brand visibility.',
+    date: 'Feb 03, 2026',
+    readTime: '4 Min read',
+    image: 'https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&q=80&w=800',
+    href: '/blogs/1',
   },
   {
     id: '2',
-    category: 'Growth Strategy',
-    title: 'Data-Driven Growth: How GA4 Can Save Your Marketing Budget',
-    excerpt: 'Most businesses are still flying blind with their ad spend. Here\'s how Google Analytics 4 reveals which channels actually drive revenue.',
-    date: 'Feb 22, 2026',
-    readTime: '12 Min read',
-    image: 'https://placehold.co/800x450/0e1628/5530c4/png',
-    href: '#',
+    category: 'Content Marketing',
+    title: 'Content Marketing: আপনার বিজনেসের জন্য কেন অপরিহার্য?',
+    excerpt: 'Content Marketing হলো এমন একটি স্ট্র্যাটেজি যা বিজ্ঞাপন ছাড়াই কাস্টমারের বিশ্বাস তৈরি করে এবং ধীরে ধীরে তাদেরকে লয়াল কাস্টমারে রূপান্তর করে।',
+    date: 'Jan 16, 2026',
+    readTime: '3 Min read',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+    href: '/blogs/2',
   },
   {
     id: '3',
-    category: 'Marketing Funnel',
-    title: 'How to Turn Strangers into Customers in 3 Steps',
-    excerpt: 'The classic marketing funnel re-imagined for 2026. Awareness, consideration, and conversion — with real examples from RevEnComm campaigns.',
-    date: 'Feb 8, 2026',
-    readTime: '8 Min read',
-    image: 'https://placehold.co/800x450/1a1428/7b52f0/png',
-    href: '#',
+    category: 'Brand Strategy',
+    title: 'আপনার ব্রান্ডের জন্য Influencer Marketing: যেভাবে শুরু করবেন',
+    excerpt: 'Influencer Marketing আজকের ডিজিটাল মার্কেটিংয়ের সবচেয়ে শক্তিশালী স্ট্র্যাটেজিগুলোর একটি। সঠিক ইনফ্লুয়েন্সার নির্বাচন করতে পারলে দ্রুত ব্রান্ড ভ্যালু বাড়ে।',
+    date: 'Jan 09, 2026',
+    readTime: '5 Min read',
+    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800',
+    href: '/blogs/3',
   },
 ]
 
@@ -57,15 +57,15 @@ export default function BlogSection() {
             </div>
             <h2 id="blog-heading"
               className="text-[clamp(1.8rem,4.3vw,3.5rem)] font-extrabold tracking-tight leading-[1.1]">
-              Get on a journey to become<br />
-              a <span className="text-gradient">web-savvy</span> founder
+              Insights, stories, and strategies<br />
+              to grow with <span className="text-gradient">clarity</span>
             </h2>
           </div>
           <a href="#"
             className="inline-flex items-center gap-2 border-2 border-[#673DE6] text-white font-semibold
                        px-5 py-3 rounded-[15px] text-sm min-h-[48px] hover:bg-[#673DE6]/10 transition-colors
                        whitespace-nowrap self-start md:self-end">
-            Browse All Blogs <ArrowUpRight size={14} />
+            View All Blog Posts <ArrowUpRight size={14} />
           </a>
         </div>
 
