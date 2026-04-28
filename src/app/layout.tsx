@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   },
 }
 
+import dynamic from 'next/dynamic'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
+import ClientOnlyComponents from '@/components/home/ClientOnlyComponents'
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -43,7 +48,12 @@ export default function RootLayout({
             reducedMotion="user"
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            {children}
+            <ClientOnlyComponents />
+            <Navbar />
+            <main id="main-content">
+              {children}
+            </main>
+            <Footer />
           </MotionConfig>
         </LazyMotion>
       </body>

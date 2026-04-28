@@ -4,10 +4,7 @@
 // ssr: false components are wrapped in ClientOnlyComponents (Next.js 16 RSC constraint).
 
 import dynamic from 'next/dynamic'
-import Navbar from '@/components/layout/Navbar'
 import HeroSection from '@/components/home/HeroSection'
-import Footer from '@/components/layout/Footer'
-import ClientOnlyComponents from '@/components/home/ClientOnlyComponents'
 
 // Dynamically imported — below-the-fold, lazy-loaded (SSR is fine for these)
 const TrustMarquee = dynamic(() => import('@/components/home/TrustMarquee'))
@@ -24,28 +21,17 @@ const NewsletterSection = dynamic(() => import('@/components/home/NewsletterSect
 export default function HomePage() {
   return (
     <>
-      {/* Client-only components: PageLoader, CursorGlow, WhatsAppButton (ssr: false) */}
-      <ClientOnlyComponents />
-
-      {/* Sticky navbar */}
-      <Navbar />
-
-      {/* Page content */}
-      <main id="main-content">
-        <HeroSection />
-        <TrustMarquee />
-        <AboutSection />
-        <PortfolioSection />
-        <ServicesSection />
-        <CategoriesSection />
-        <TestimonialsSection />
-        <FaqSection />
-        <BlogSection />
-        <CtaBanner />
-        {/* <NewsletterSection /> */}
-      </main>
-
-      <Footer />
+      <HeroSection />
+      <TrustMarquee />
+      <AboutSection />
+      <PortfolioSection />
+      <ServicesSection />
+      <CategoriesSection />
+      <TestimonialsSection />
+      <FaqSection />
+      <BlogSection />
+      <CtaBanner />
+      {/* <NewsletterSection /> */}
     </>
   )
 }
