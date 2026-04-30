@@ -74,7 +74,7 @@ function PillRow({ pills, reverse = false }: { pills: string[]; reverse?: boolea
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-[clamp(80px,10vw,180px)] px-5 md:px-10 overflow-hidden"
+    <section id="about" className="relative pt-[clamp(80px,10vw,180px)] pb-12 px-5 md:px-10 overflow-hidden z-10"
       aria-labelledby="about-heading">
 
       {/* Section number watermark */}

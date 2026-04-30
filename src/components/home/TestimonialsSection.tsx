@@ -20,11 +20,9 @@ function TestimonialCard({ t, index, scrollYProgress }: { t: typeof testimonials
   const end = (index + 1) * step
   
   // Progress of this specific card (0 to 1 as it enters and stacks)
-  // Cards emerge from bottom (y: 100% to 0) as scroll progress reaches their "step"
   const y = useTransform(scrollYProgress, [start - 0.1, start], ['100vh', '0vh'])
   
   // Previous cards scale down and dim as subsequent cards emerge
-  // We track the progress after this card is fully "stacked"
   const scale = useTransform(scrollYProgress, [end, end + step], [1, 0.9])
   const opacity = useTransform(scrollYProgress, [end, end + step], [1, 0.4])
   
@@ -42,8 +40,8 @@ function TestimonialCard({ t, index, scrollYProgress }: { t: typeof testimonials
       }}
       className="sticky w-full max-w-[600px] mx-auto p-1 px-4 lg:px-0"
     >
-      <div className="bg-[#11111a] border border-white/10 rounded-[32px] p-8 lg:p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col gap-8 transition-colors duration-300 hover:border-[#673DE6]/30 group">
-        <Quote size={48} className="text-[#673DE6] opacity-20 group-hover:opacity-40 transition-opacity" />
+      <div className="bg-[#11111a] border border-white/10 rounded-[32px] p-8 lg:p-12 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] flex flex-col gap-8 transition-colors duration-300 hover:border-[#FF8A00]/30 group">
+        <Quote size={48} className="text-[#FF8A00] opacity-20 group-hover:opacity-40 transition-opacity" />
         
         <p className="text-white text-lg lg:text-2xl font-medium italic leading-relaxed">
           &ldquo;{t.text}&rdquo;
@@ -62,7 +60,7 @@ function TestimonialCard({ t, index, scrollYProgress }: { t: typeof testimonials
           
           <div className="flex gap-1">
             {[...Array(t.rating)].map((_, j) => (
-              <Star key={j} size={14} className="text-[#673DE6] fill-[#673DE6]" />
+              <Star key={j} size={14} className="text-[#FF8A00] fill-[#FF8A00]" />
             ))}
           </div>
         </div>
@@ -82,7 +80,7 @@ export default function TestimonialsSection() {
     <section 
       ref={containerRef}
       id="testimonials"
-      className="relative bg-[#0A0A0F]"
+      className="relative bg-[#0A0A0F] py-24"
       style={{ height: `${testimonials.length * 100}vh` }}
     >
       {/* Background Watermark */}
@@ -93,7 +91,7 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Title block */}
-      <div className="absolute top-20 left-0 w-full px-5 md:px-10 z-20 pointer-events-none sticky">
+      <div className="sticky top-24 left-0 w-full px-5 md:px-10 z-20 pointer-events-none mb-24">
         <m.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -112,7 +110,7 @@ export default function TestimonialsSection() {
       </div>
 
       {/* Stacking Cards Container */}
-      <div className="relative z-10 -mt-[100vh]">
+      <div className="relative z-10 px-5 md:px-0">
         {testimonials.map((t, index) => (
           <TestimonialCard 
             key={t.id} 
@@ -128,4 +126,3 @@ export default function TestimonialsSection() {
     </section>
   )
 }
-

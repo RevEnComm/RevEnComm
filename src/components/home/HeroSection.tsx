@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { m, AnimatePresence } from 'motion/react'
 import { ArrowUpRight, Play, ChevronRight, Star, Globe, Zap, Bot, Megaphone } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // --- CONSTANTS & DESIGN TOKENS ---
 
@@ -162,8 +163,12 @@ export default function HeroSection() {
   return (
     <section 
       id="home"
-      className="relative min-h-screen flex items-center pt-28 pb-20 lg:pt-32 lg:pb-0 overflow-hidden"
+      className="relative min-h-[90vh] flex items-center pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden"
     >
+      {/* Background Gradients */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#FF8A00]/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#FF8A00]/5 blur-[120px] rounded-full pointer-events-none" />
+
       <div className="max-w-[1400px] mx-auto px-5 lg:px-10 w-full relative z-20">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
           
@@ -215,40 +220,46 @@ export default function HeroSection() {
                     </span>
                   </div>
 
-                  <h1 className="text-[clamp(2.5rem,7vw,4.8rem)] font-black tracking-tight leading-[0.95] mb-8 text-white">
+                  <h1 className="text-[clamp(2.5rem,7vw,4.8rem)] font-black tracking-tight leading-[0.95] mb-8 text-white uppercase">
                     MANAGE <span className="text-[#FF8A00]">YOUR</span><br/>
-                    <span className="bg-gradient-to-r from-white via-white/80 to-white/40 bg-clip-text text-transparent uppercase">BUSINESS</span>
+                    <span className="bg-gradient-to-r from-white via-white/80 to-white/40 bg-clip-text text-transparent">BUSINESS</span>
                   </h1>
 
                   {/* Production Subtitle with Shadows Into Light Font */}
                   <div className="flex flex-col gap-4 mb-10">
-                    <p className="text-[clamp(1.1rem,2vw,1.4rem)] text-white/50 leading-relaxed font-medium">
+                    <p className="text-[clamp(1.1rem,2vw,1.4rem)] text-white/50 leading-relaxed font-medium uppercase">
                       WITH THE HELP OF OUR <span className="text-[#FF8A00] font-bold" style={{ fontFamily: 'var(--font-shadows)' }}>EXPERT</span> TEAM
                     </p>
                     <div className="w-20 h-px bg-gradient-to-r from-[#FF8A00] to-transparent" />
                   </div>
 
                   <div className="flex flex-wrap gap-5">
-                    <m.a
-                      href="#contact"
+                    <Link
+                      href="/contact"
                       onMouseEnter={() => setBtnHovered(true)}
                       onMouseLeave={() => setBtnHovered(false)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
                       className="group relative flex items-center gap-3 bg-[#FF8A00] text-white font-bold pl-8 pr-2 py-2 rounded-full min-h-[60px] cursor-pointer shadow-lg shadow-orange-500/20"
                     >
                       <span className="text-[13px] uppercase tracking-widest overflow-hidden h-5 relative block w-32 shrink-0">
-                        <span className={`block transition-transform duration-500 ease-[0.16,1,0.3,1] ${btnHovered ? '-translate-y-full' : 'translate-y-0'}`}>
+                        <m.span 
+                          animate={{ y: btnHovered ? '-100%' : '0%' }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          className="block"
+                        >
                           Consultation
-                        </span>
-                        <span className="absolute top-full left-0 block transition-transform duration-500 ease-[0.16,1,0.3,1]" style={{ transform: btnHovered ? 'translateY(-100%)' : 'translateY(0)' }}>
+                        </m.span>
+                        <m.span 
+                          animate={{ y: btnHovered ? '-100%' : '0%' }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute top-full left-0 block"
+                        >
                           Start Project
-                        </span>
+                        </m.span>
                       </span>
                       <span className="w-11 h-11 bg-white rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-45">
                         <ArrowUpRight size={18} className="text-[#FF8A00]" />
                       </span>
-                    </m.a>
+                    </Link>
 
                     <button className="flex items-center gap-4 px-6 text-white/60 hover:text-white transition-colors group">
                       <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white/5 transition-all">

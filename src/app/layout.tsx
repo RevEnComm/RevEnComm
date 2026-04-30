@@ -39,7 +39,6 @@ export const metadata: Metadata = {
   },
 }
 
-import dynamic from 'next/dynamic'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ClientOnlyComponents from '@/components/home/ClientOnlyComponents'
