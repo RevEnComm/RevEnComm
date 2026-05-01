@@ -119,7 +119,7 @@ export default function CategoriesSection() {
   const [activeIdx, setActiveIdx] = useState<number>(0)
 
   return (
-    <section id="categories" className="py-[clamp(80px,10vw,160px)] bg-[#0A0A0F]">
+    <section id="categories" className="relative z-40 py-[clamp(80px,10vw,160px)] bg-[#0A0A0F]">
       <div className="max-w-[1400px] mx-auto px-5 lg:px-10">
         
         {/* Header */}

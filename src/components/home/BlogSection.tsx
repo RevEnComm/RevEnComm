@@ -49,7 +49,7 @@ const posts = [
 
 export default function BlogSection() {
   return (
-    <section id="blog" className="relative py-[clamp(80px,10vw,180px)] px-5 md:px-[40px] bg-[#0A0A0F] overflow-hidden"
+    <section id="blog" className="relative z-[52] py-[clamp(80px,10vw,180px)] px-5 md:px-[40px] bg-[#0A0A0F] overflow-hidden"
       aria-labelledby="blog-heading">
 
       {/* Section number watermark */}

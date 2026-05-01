@@ -37,7 +37,7 @@ export default function FaqSection() {
   const [openId, setOpenId] = useState<string | null>('1')
 
   return (
-    <section id="faq" className="relative py-[clamp(70px,8.6vw,150px)] px-5 md:px-[25px] bg-[#0A0A0F] overflow-hidden"
+    <section id="faq" className="relative z-[51] py-[clamp(70px,8.6vw,150px)] px-5 md:px-[25px] bg-[#0A0A0F] overflow-hidden"
       aria-labelledby="faq-heading">
 
       {/* Section number watermark */}

@@ -80,7 +80,7 @@ export default function TestimonialsSection() {
     <section 
       ref={containerRef}
       id="testimonials"
-      className="relative bg-[#0A0A0F] py-24"
+      className="relative z-[50] bg-[#0A0A0F] py-24"
       style={{ height: `${testimonials.length * 100}vh` }}
     >
       {/* Background Watermark */}

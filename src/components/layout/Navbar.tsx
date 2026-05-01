@@ -21,25 +21,25 @@ const serviceGroups = [
     href: '/services/digital-marketing',
   },
   {
-    heading: 'Web Solutions',
+    heading: 'Website & Software',
     desc: 'Custom high-performance platforms.',
     icon: Globe,
     accent: '#FF8A00',
-    href: '/services/web-solutions',
+    href: '/services/website-software',
   },
   {
-    heading: 'Automation & AI',
+    heading: 'AI & Automation',
     desc: 'Deploying the future of work.',
     icon: Bot,
     accent: '#FF8A00',
-    href: '/services/automation-ai',
+    href: '/services/ai-automation',
   },
   {
-    heading: 'Creative Design',
+    heading: 'Content Solution',
     desc: 'High-end visual storytelling.',
     icon: Palette,
     accent: '#FF8A00',
-    href: '/services/creative-design',
+    href: '/services/content-solution',
   },
 ]
 
